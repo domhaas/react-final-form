@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Form, Field } from 'react-final-form'
+import TestInput from './component/form/input/TestInput'
+import { TextField } from "@mui/material"
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const testValidator = (val?: string) => {
+  return true
 }
 
-export default App;
+const App = () => (
+  <Form
+    onSubmit={() => { }}
+    render={({ handleSubmit, form, submitting, pristine, values }) => (
+      <form onSubmit={handleSubmit}>
+        <TestInput />
+        <Field name="test2" validate={testValidator}>
+          {({ input, meta }) => (
+            <div>
+              <TextField {...input} type="text" label="Input" />
+              {meta.error && meta.touched && <span>{meta.error}</span>}
+            </div>
+          )}
+        </Field>
+        <pre>{JSON.stringify(values)}</pre>
+      </form>
+    )}
+  />
+)
+
+export default App
